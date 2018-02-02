@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="divBack">
+        <strong>Cadastro de Regiões do Fornecedor</strong>
+    </div>
+
+    <div class="form">
+        <form (ngSubmit)="onSubmit()" #fornecedorForm="ngForm">
+            <div>
+                <span>Fornecedor</span>
+                <span class="obrigatorio">*</span>
+                <div class="select">
+                    <select #fornecedorOption="ngModel" [ngClass]="getFormGroupClass(fornecedorOption.valid, fornecedorOption.pristine)" name="fornecedorOption" [(ngModel)]="fornecedor.IdFornecedor" required>
+                        <option *ngFor="let fornecedor of fornecedores" value={{fornecedor.IdFornecedor}}>{{ fornecedor.Nome }}</option>
+                    </select>
+                    <div [hidden]="fornecedorOption.valid || fornecedorOption.pristine" class="invalid-feedback">O Fornecedor é um campo obrigatório.</div>
+                </div>
+            </div>
+            <div class="espacamento-vert">
+                <button style="cursor: pointer;" [disabled]="!fornecedorForm.form.valid">
+                    Buscar
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div *ngIf="atendimentos" class="grid">
+        <table>
+            <tr>
+                <th>Atende?</th>
+                <th>UF</th>
+                <th>Região</th>
+            </tr>
+            <tr *ngFor="let atendimento of atendimentos" [ngStyle]="setTableBackgroundCSS(atendimento.Ativo)">
+                <td>
+                    <input (click)="atribuirFornecedor(atendimento)" type="checkbox" [checked]="atendimento.IdFornecedor > 0" />
+                </td>
+                <td>{{ atendimento.Estado }}</td>
+                <td>{{ atendimento.Regiao }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div (click)="gravarFornecedores()" *ngIf="atendimentos" class="espacamento-vert">
+        <button>Gravar</button>
+    </div>
+
+</div>

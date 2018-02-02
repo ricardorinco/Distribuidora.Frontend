@@ -1,0 +1,20 @@
+<div class="grid">
+    <table>
+        <tr>
+            <th>UF</th>
+            <th>Região</th>
+            <th>Situação</th>
+            <th colspan="2" style="text-align: center;">Ações</th>
+        </tr>
+        <tr *ngFor="let regiao of regioes">
+            <td>{{ regiao.Estado.Descricao }}</td>
+            <td>{{ regiao.Descricao }}</td>
+            <td>{{ regiao.Ativo | booleanToString }}</td>
+            <td colspan="2" style="text-align: center;">
+                <button [routerLink]="['/regioes', regiao.IdRegiao]" class="btn btn-info" style="cursor: pointer;"><i class="fa fa-id-card-o" aria-hidden="true"></i></button>
+                <button *ngIf="!regiao.Ativo" (click)="modificarStatus(regiao.IdRegiao)" class="btn btn-success" style="cursor: pointer;"><i class="fa fa-check-square" aria-hidden="true"></i></button>
+                <button *ngIf="regiao.Ativo" (click)="modificarStatus(regiao.IdRegiao)" class="btn btn-danger" style="cursor: pointer;"><i class="fa fa-window-close" aria-hidden="true"></i></button>
+            </td>
+        </tr>
+    </table>
+</div>

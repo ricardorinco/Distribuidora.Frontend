@@ -1,0 +1,28 @@
+<div class="form">
+    <form (ngSubmit)="onSubmit()" #regiaoForm="ngForm">
+        <div>
+            <span>UF</span>
+            <span class="obrigatorio">*</span>
+            <div class="select">
+                <select #estadoOption="ngModel" [ngClass]="getFormGroupClass(estadoOption.valid, estadoOption.pristine)" name="estadoOption" [(ngModel)]="regiao.IdEstado" required>
+                    <option *ngFor="let estado of estados" value={{estado.IdEstado}}>{{ estado.Descricao }}</option>
+                </select>
+                <div [hidden]="estadoOption.valid || estadoOption.pristine" class="invalid-feedback">O Estado é um campo obrigatório.</div>
+            </div>
+        </div>
+        <div class="espacamento-vert">
+            <span>Regiao</span>
+            <span class="obrigatorio">*</span>
+            <div class="input">
+                <input #descricao="ngModel" type="text" [ngClass]="getFormGroupClass(descricao.valid, descricao.pristine)" name="descricao" placeholder="Descrição" [(ngModel)]="regiao.Descricao" required>
+                <div [hidden]="descricao.valid || descricao.pristine" class="invalid-feedback">A Descrição é um campo obrigatório.</div>
+            </div>
+        </div>
+
+        <div class="espacamento-vert">
+            <button style="cursor: pointer;" [disabled]="!regiaoForm.form.valid">
+                Inserir
+            </button>
+        </div>
+    </form>
+</div>
